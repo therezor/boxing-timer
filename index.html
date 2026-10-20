@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Boxing Timer">
+  <meta name="description" content="Round timer for boxing, MMA and interval training. Works offline and plays over your music.">
+  <title>Boxing Timer</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body class="idle">
+  <main class="app">
+    <header class="top">
+      <div id="round" class="round"></div>
+      <button id="open-settings" class="icon-btn" type="button" aria-label="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+      </button>
+    </header>
+
+    <section class="clock">
+      <div id="phase" class="phase"></div>
+      <div id="time" class="time">0:00</div>
+      <div class="bar"><div id="bar-fill" class="bar-fill"></div></div>
+      <div id="total" class="total"></div>
+    </section>
+
+    <div id="sound-hint" class="sound-hint" hidden>Tap anywhere to turn sound on</div>
+
+    <nav class="controls">
+      <button id="reset" class="ctl" type="button" aria-label="Reset">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>
+      </button>
+      <button id="primary" class="ctl primary" type="button">Start</button>
+      <button id="skip" class="ctl" type="button" aria-label="Skip to next phase">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5l10 7.5-10 7.5z" class="fill"/><path d="M19 5v14"/></svg>
+      </button>
+    </nav>
+  </main>
+
+  <dialog id="settings" class="sheet">
+    <div class="sheet-head">
+      <h2>Settings</h2>
+      <button id="close-settings" class="done-btn" type="button">Done</button>
+    </div>
+
+    <div class="sheet-body">
+      <section class="group">
+        <h3>Presets</h3>
+        <div id="presets" class="chips"></div>
+        <div class="save-preset">
+          <input id="preset-name" type="text" placeholder="Name this setup" maxlength="24" autocomplete="off" enterkeyhint="done">
+          <button id="save-preset" type="button" class="pill">Save</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <h3>Timing</h3>
+        <p id="reset-note" class="note warn-note" hidden>Changing timing resets the current session.</p>
+        <div id="steppers" class="rows"></div>
+      </section>
+
+      <section class="group">
+        <h3>Sounds</h3>
+        <div id="sounds" class="rows"></div>
+        <div class="row">
+          <label for="volume">Volume</label>
+          <input id="volume" type="range" min="0" max="100" step="5">
+          <output id="volume-out" class="val"></output>
+        </div>
+        <div id="session-row" class="row" hidden>
+          <span>With music</span>
+          <div class="seg" role="radiogroup" aria-label="Sound with music">
+            <button type="button" data-session="ambient" role="radio">Mix</button>
+            <button type="button" data-session="transient" role="radio">Duck</button>
+          </div>
+        </div>
+        <p class="note">Bells follow the Ring/Silent switch. If you hear nothing, turn Silent Mode off and check the volume.</p>
+      </section>
+
+      <section class="group">
+        <h3>Display</h3>
+        <div id="colors" class="colors"></div>
+        <div id="toggles" class="rows"></div>
+        <p class="note">Keep the app open on screen while you train: iOS pauses web apps when the screen locks.</p>
+      </section>
+
+      <section class="group">
+        <button id="restore" type="button" class="pill wide">Restore defaults</button>
+        <p class="version">Boxing Timer <span id="version"></span> · works offline</p>
+      </section>
+    </div>
+  </dialog>
+</body>
+</html>
